@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title%}Cadastro produto {% endblock title%}
+
+{% block content%}
+{% load crispy_forms_tags %}
+    <div class="container ml-3">
+        <form method="post"> {% csrf_token %}
+            {{form|crispy }}
+    
+            <button type="submit" class="btn btn-primary">cadastrar</button>
+        </form>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos%}
+            <tr>
+                <th scope="row">{{produto.id}}</th>
+                <td>{{produto.nome}}</td>
+                <td>{{produto.preco_do_produto}}</td>
+                <td>{{produto.quantidade}}</td>
+            </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+{% endblock content%}
