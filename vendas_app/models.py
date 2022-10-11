@@ -27,7 +27,9 @@ class Carrinho(models.Model):
     valor_da_compra = models.DecimalField(decimal_places=2, max_digits=150)
     quantidade = models.IntegerField()
 
-    vendas = 'vendas'
+    
     def __str__(self):
         
-        return self.vendas 
+        return str(self.data_compra)
+
+    

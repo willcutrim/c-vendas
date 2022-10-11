@@ -1,5 +1,8 @@
+from math import prod
 from django.shortcuts import redirect, render
 from django.contrib import messages
+
+
 from .models import Carrinho, Categoria, Produto
 from .forms import FormCarrinho, FormProduto, FormCategoria
 
@@ -31,22 +34,21 @@ def cadastro_produtos(request):
 
 
 def vendas(request):
+    produto = Produto.objects.all()
+    total = 0
+    for i in produto:
+        
+        total = i.preco_do_produto + i.preco_do_produto
+
+    print(total, i.nome)
     if request.method == 'POST':
-        # initial_data = {
-        #     'preco_do_produto': valor
-        # }
         form = FormCarrinho(request.POST)
-        pk = form.data['produtos']
-        q = Produto.objects.get(pk=pk)
-        
-        print(q.nome)
-        
         if form.is_valid():
             # form.save()
             return redirect('/')
     else:
         form = FormCarrinho()
-    return render(request, 'html/home.html', {'form': form})
+    return render(request, 'html/home.html', {'form': form, 'produtos': produto})
 
 def historico_de_vendas(request):
     vendas = Carrinho.objects.all()
@@ -56,7 +58,5 @@ def historico_de_vendas(request):
 
 def vendas_detalhes(request, pk):
     venda = Carrinho.objects.get(pk=pk)
-    v = Carrinho.objects.get(pk=pk)
-    print(v.pk, v.quantidade)
-
-    return render(request, 'html/venda-detalhe.html', {'venda':venda})
+    produtos = ", ".join([str(p) for p in venda.produtos.all()])
+    return render(request, 'html/venda-detalhe.html', {'venda':venda, 'produtos': produtos})

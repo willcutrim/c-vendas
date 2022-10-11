@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # form
     'crispy_forms',
+    'django_select2',
     #app
     'vendas_app',
 ]

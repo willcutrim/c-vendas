@@ -1,6 +1,7 @@
 
 from django import forms
 from .models import Categoria, Produto, Carrinho
+from django_select2 import forms as s2forms
 
 
 class FormCategoria(forms.ModelForm):

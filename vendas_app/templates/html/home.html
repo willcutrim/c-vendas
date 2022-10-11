@@ -3,60 +3,69 @@
 {% block title%}Home {% endblock title%}
 
 {% block content%}
+
+
 {% load crispy_forms_tags %}
     <h2 class="text-center alert alert-info">C-VENDAS<h2>
     <a href="{% url 'cadastrar_produtos' %}"class="btn btn-warning btn-sm">Cadastrar produtos</a>
+    <a href="{% url 'historico-vendas' %}"class="btn btn-primary btn-sm">Histórico de vendas</a>
+
 
     <form method="post">{% csrf_token %}
-        {{ form|crispy}}
+        {{ form|crispy }}
 
-        <button type="submit" class="btn btn-primary">finalizar</button>
+        <button type="submit" class="btn btn-primary">Finalizar</button>
     </form>
-    
+    {% endblock content%}
 
-    <div class="container">
-        <h4 class="text-center alert alert-info">Compras<h4>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Produto</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">valor da unidade</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-                {% comment %} {% for produto in produtos%}
-                    <tr>
-                        <th scope="row">{{produto.id}}</th>
-                        <td>{{produto.nome}}</td>
-                        <td>{{produto.preco_do_produto}}</td>
-                        <td>{{produto.quantidade}}</td>
-                    </tr>
-                {% endfor %} {% endcomment %}
-                <tr>
-                    <td>Rodo</td>
-                    <td>1</td>
-                    <td>3,50</td>
+
+
+
+    
+    <!--
+        <div class="container">
+            <h4 class="text-center alert alert-info">Compras<h4>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">valor da unidade</th>
                     
-                </tr>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% comment %} {% for produto in produtos%}
+                        <tr>
+                            <th scope="row">{{produto.id}}</th>
+                            <td>{{produto.nome}}</td>
+                            <td>{{produto.preco_do_produto}}</td>
+                            <td>{{produto.quantidade}}</td>
+                        </tr>
+                    {% endfor %} {% endcomment %}
+                    <tr>
+                        <td>Rodo</td>
+                        <td>1</td>
+                        <td>3,50</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Lava louça</td>
+                        <td>3</td>
+                        <td>3,50</td>
+                    </tr>
+                    <tr>
+                        <td>sabão em pó</td>
+                        <td>3</td>
+                        <td>3,50</td>
+                    </tr>
+                    
+                </tbody>
                 <tr>
-                    <td>Lava louça</td>
-                    <td>3</td>
-                    <td>3,50</td>
+                    <th scope="col">total</th>
+                    <th scope="col"></th>
+                    <th scope="col"> R$ 10,50</th>
                 </tr>
-                <tr>
-                    <td>sabão em pó</td>
-                    <td>3</td>
-                    <td>3,50</td>
-                </tr>
-                
-            </tbody>
-            <tr>
-                <th scope="col">total</th>
-                <th scope="col"></th>
-                <th scope="col"> R$ 10,50</th>
-            </tr>
-        </table>
-    </div>
-{% endblock content%}
+            </table>
+        </div>
+    -->
