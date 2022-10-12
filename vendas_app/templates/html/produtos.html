@@ -2,34 +2,54 @@
 
 {% block title%}Cadastro produto {% endblock title%}
 
+{% block core %}
+<a class="collapse-item" href="{% url 'home' %}">
+  <i class="fas fa-fw fa-chevron-left"></i>
+</a>
+Cadastro de produtos
+{% endblock%}
+
+
+
 {% block content%}
 {% load crispy_forms_tags %}
+{% load bootstrap %}
     <div class="container ml-3">
-        <form method="post"> {% csrf_token %}
-            {{form|crispy }}
+      <div class="row">
+        <div class="col">
+          <form method="post"> {% csrf_token %}
+            {{form|bootstrap }}
     
             <button type="submit" class="btn btn-primary">cadastrar</button>
         </form>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Preço</th>
-            <th scope="col">Quantidade</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for produto in produtos%}
-            <tr>
-                <th scope="row">{{produto.id}}</th>
-                <td>{{produto.nome}}</td>
-                <td>{{produto.preco_do_produto}}</td>
-                <td>{{produto.quantidade}}</td>
-            </tr>
-          {% endfor %}
-          
-        </tbody>
-      </table>
+        </div>
+
+        <div class="col">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos%}
+                <tr>
+                    <th scope="row">{{produto.id}}</th>
+                    <td>{{produto.nome}}</td>
+                    <td>{{produto.preco_do_produto}}</td>
+                    <td>{{produto.quantidade}}</td>
+                </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+        
+    
     </div>
 {% endblock content%}

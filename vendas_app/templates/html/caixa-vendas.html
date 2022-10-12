@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title%}CAIXA {% endblock title%}
+
+{% block core %}
+<a class="collapse-item" href="{% url 'home' %}">
+  <i class="fas fa-fw fa-chevron-left"></i>
+</a>
+CAIXA
+{% endblock%}
+
+
+
+{% block content%}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+    <h1 class="text-center">CAIXA</h1>
+
+    <hr class="sidebar-divider">
+    <form method="post">{% csrf_token %}
+        {{form|bootstrap}}
+        
+        <button type="submit" class="btn btn-primary">Finalizar</button>
+    </form>
+{% endblock content%}
