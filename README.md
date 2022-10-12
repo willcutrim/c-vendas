@@ -2,5 +2,6 @@
 Sistemas de caixa e controle de estoque.
 
 # instalação
-## clona o repositório e depois digita o seguinte comando:
+  #### depois de clonar o repositório, digita o seguinte comando para instalar as dependências:
+      pip install requirements.txt
   
