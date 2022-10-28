@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django_select2',
     #app
     'vendas_app',
+
+    #rest 
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+
+
 
 ROOT_URLCONF = 'sitemas_de_vendas.urls'
 

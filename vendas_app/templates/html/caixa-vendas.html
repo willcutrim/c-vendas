@@ -10,16 +10,31 @@ CAIXA
 {% endblock%}
 
 
-
 {% block content%}
-{% load crispy_forms_tags %}
 {% load bootstrap %}
-    <h1 class="text-center">CAIXA</h1>
+  <h1 class="text-center">CAIXA</h1>
 
-    <hr class="sidebar-divider">
-    <form method="post">{% csrf_token %}
-        {{form|bootstrap}}
-        
-        <button type="submit" class="btn btn-primary">Finalizar</button>
-    </form>
+  <hr class="sidebar-divider">
+  {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+  
+  <form method="post">{% csrf_token %}
+    <div class="form-group">
+      <select name="produtos" class="form-control" multiple>
+          {% for pro in produtos %}
+              <option value="{{pro.id}}" name="produtos">{{pro.nome}}</option>
+          {% endfor %}  
+      </select>  
+    </div>
+    <button type="submit" class="btn btn-primary">Finalizar</button> 
+  </form> 
+  <h5 class="text-center">R$: {{total}}</h5>
+
+
 {% endblock content%}
+

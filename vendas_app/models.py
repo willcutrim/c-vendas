@@ -24,12 +24,10 @@ class Produto(models.Model):
 class Carrinho(models.Model):
     produtos = models.ManyToManyField(Produto, blank=True, related_name='vendas')
     data_compra = models.DateTimeField(auto_now_add=True)
-    valor_da_compra = models.DecimalField(decimal_places=2, max_digits=150)
+    valor_da_compra = models.DecimalField(decimal_places=2, max_digits=10, default=0, blank=True)
     quantidade = models.IntegerField()
 
     
     def __str__(self):
         
         return str(self.data_compra)
-
-    

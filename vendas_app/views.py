@@ -1,10 +1,29 @@
-from django.shortcuts import redirect, render
+from rest_framework import status
+from django.shortcuts import redirect, render, HttpResponse
 from django.contrib import messages
-from pyparsing import empty
-
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import Carrinho, Categoria, Produto
-from .forms import FormCarrinho, FormProduto, FormCategoria
+from .forms import FormProduto, FormCategoria
+from .serializers import CarrinhoSerializer
+from django.contrib import messages
+import requests
+
+class CarrinhoController(APIView):
+
+    def get(self, request):
+        produtos = Carrinho.objects.all()
+        serializer = CarrinhoSerializer(produtos)
+        return Response(serializer.data)
+
+
+    def post(self, request):
+        serializer = CarrinhoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
 
 
 
@@ -33,27 +52,19 @@ def cadastro_produtos(request):
     return render(request, 'html/produtos.html', {'form': form, 'produtos': produtos})
 
 
-def vendas(request):
-    produto = Produto.objects.all()
-    if request.method == 'POST':
-        form = FormCarrinho(request.POST)
-        if form.is_valid():
-            # form.save()
-            return redirect('/')
-    else:
-        form = FormCarrinho()
-    return render(request, 'html/home.html', {'form': form, 'produtos': produto})
+def home(request):
+    return render(request, 'html/home.html')
 
 def historico_de_vendas(request):
-    vendas = Carrinho.objects.all()
-    vendas_q = Carrinho.objects.filter()
+    
+    vendas_q = Carrinho.objects.filter().order_by('-data_compra')[:10]
     
     start_date = request.GET.get('data_inicial')
     end_date = request.GET.get('data_final')
     if start_date and end_date:
         vendas_q = Carrinho.objects.filter(data_compra__range=[start_date, end_date])
     
-    return render(request, 'html/vendas.html', {'vendas': vendas, 'vendas_q': vendas_q})
+    return render(request, 'html/vendas.html', {'vendas_q': vendas_q})
 
 
 def vendas_detalhes(request, pk):
@@ -63,11 +74,42 @@ def vendas_detalhes(request, pk):
 
 def caixa_vendas(request):
     produto = Produto.objects.all()
+    
+    total = float(0.0)
+    qt = 0
+    
     if request.method == 'POST':
-        form = FormCarrinho(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/caixa-vendas')
-    else:
-        form = FormCarrinho()
-    return render(request, 'html/caixa-vendas.html', {'form': form, 'produtos': produto})
+        add = request.POST.getlist('produtos')
+        
+        url = 'http://127.0.0.1:8000/api/carrinho/'
+        q = calcular_venda(add)['quantidade']
+        total = calcular_venda(add)['total']
+
+        keyboard = {
+            "valor_da_compra": total,
+            "quantidade": q,
+            "produtos": add,
+        }
+        response = requests.post(url, data=keyboard)
+
+        if response.status_code == 201:
+            messages.info(request, 'Valor da compra R$ {}'.format(total))
+            # return redirect('/caixa-vendas')
+        
+    return render(request, 'html/caixa-vendas.html', {'produtos': produto, 'total': total, 'quantidade': qt})
+   
+
+
+def calcular_venda(add):
+    total = float(0)
+    
+    for i in add: 
+        q = Produto.objects.get(pk=i)
+        total += float(q.preco_do_produto)
+    
+    q = len(add)
+    
+    return {'quantidade': q, 'total': total}
+
+
+
