@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title%}Cadastro produto {% endblock title%}
+{% block title%}Histórico de vendas {% endblock title%}
 
 {% block core %}
 <a class="collapse-item" href="{% url 'home' %}">
@@ -13,7 +13,7 @@ Histórico de vendas
 
 {% block content%}
 {% load crispy_forms_tags %}
-    <div class="col-md-8">
+     <div class="col-md-8">
       <form class="form-inline my-2 my-gl-0 pull-right">
           <label>Data Inicial</label>
           <input name="data_inicial" class="form-control ml-sm-2 mr-sm-2" type="date">
@@ -25,7 +25,7 @@ Histórico de vendas
       </form>
     </div>
 
-    {% if vendas_q %}
+    {% if vendas %}
     <div class="d-flex flex-column">
       <table class="table">
           <thead>
@@ -38,7 +38,7 @@ Histórico de vendas
             </tr>
           </thead>
           <tbody>
-              {% for venda in vendas_q%}
+              {% for venda in vendas%}
               <tr>
                   <th scope="row">{{venda.id}}</th>
                   
@@ -53,7 +53,17 @@ Histórico de vendas
             {% endfor %}
             
           </tbody>
-        </table>        
+        </table>       
     </div>
+    {% endif %} 
+
+    <!-- Pagination -->
+    {% if  vendas.has_next%}
+      {% if vendas.number > 1%}
+        <a href="?page={{vendas.previous_page_number}}">&laquo voltar</a>
+      {% endif %}
+      Página {{ vendas.number}} de {{ vendas.paginator.num_pages}}
+      <a href="?page={{vendas.next_page_number}}">próximo &raquo</a>
     {% endif %}
+
 {% endblock content%}
