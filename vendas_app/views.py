@@ -86,7 +86,7 @@ def caixa_vendas(request):
     if request.method == 'POST':
         add = request.POST.getlist('produtos')
         
-        url = 'http://127.0.0.1:8000/api/carrinho/'
+        url = 'https://w-vendas.herokuapp.com/api/carrinho/'
         q = calcular_venda(add)['quantidade']
         total = calcular_venda(add)['total']
 
