@@ -1,12 +1,46 @@
 {% extends 'base.html' %}
 
-{% block title%}Home {% endblock title%}
+{% block title%}Categoria {% endblock title%}
 
 {% block content%}
+{% load bootstrap %}
+<div class="container ml-3">
+    <div class="row">
+      <div class="col">
+        <form method="post"> {% csrf_token %}
+          {{form|bootstrap }}
+  
+          <button type="submit" class="btn btn-primary">Criar</button>
+      </form>
+      </div>
 
-    <form method="post"> {% csrf_token %}
-        {{form.as_p}}
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Ações</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+              {% for categoria in categorias%}
+              <tr>
+                  <th scope="row">{{categoria.id}}</th>
+                  <td>{{categoria.nome_categoria}}</td>
+                  <td>
+                    <a href="#"class="btn btn-info btn-sm">editar</a>
+                  </td>
+              </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
 
-        <button type="submit" class="btn btn-primary">Criar</button>
-    </form>
+    </div>
+      
+  
+  </div>
 {% endblock content%}

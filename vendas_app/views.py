@@ -29,15 +29,16 @@ class CarrinhoController(APIView):
 
 
 def cadastrar_categoria(request):
+    categorias = Categoria.objects.all()
     if request.method == 'POST':
         form  = FormCategoria(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Produto adcionado com sucesso')
+            messages.success(request, 'Categoria adicionada com sucesso')
             return redirect('/')
     else:
         form = FormCategoria()
-    return render(request, 'html/categorias.html', {'form': form})
+    return render(request, 'html/categorias.html', {'form': form, 'categorias': categorias})
 
 
 def cadastro_produtos(request):
