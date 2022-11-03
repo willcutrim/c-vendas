@@ -99,7 +99,7 @@ def caixa_vendas(request):
 
         if response.status_code == 201:
             messages.info(request, 'Valor da compra R$ {}'.format(total))
-            # return redirect('/caixa-vendas')
+            return redirect('/caixa-vendas')
         
     return render(request, 'html/caixa-vendas.html', {'produtos': produto, 'total': total, 'quantidade': qt})
    

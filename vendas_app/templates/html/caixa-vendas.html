@@ -26,22 +26,22 @@ CAIXA
   <form method="post">{% csrf_token %}
     <div class="form-group">
       
-      {% comment %} <select name="produtos" class="form-control" multiple id="multiple-select">
+      <select name="produtos" class="form-control" multiple id="multiple-select">
           {% for pro in produtos %}
               <option value="{{pro.id}}" name="produtos">{{pro.nome}}</option>
           {% endfor %}  
-      </select>    {% endcomment %}
-      <select id="precoFruta" multiple name="valores" class="form-control">
-        {% for pro in produtos %}
-          <option value={{pro.valor_do_produto}} name="produtos">{{pro.nome}}</option>
-        {% endfor %} 
-      </select>
-
+      </select>    
+      
     </div>
     <button type="submit" class="btn btn-primary">Finalizar</button> 
 
-
   </form>  
+
+  {% comment %} <select id="precoFruta" multiple name="valores" class="form-control">
+    {% for pro in produtos %}
+      <option value={{pro.valor_do_produto}} name="produtos">{{pro.nome}}</option>
+    {% endfor %} 
+  </select>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   
 
@@ -55,7 +55,7 @@ CAIXA
       });
        $("#valorTotal").val(sum);
   });
-  </script>
+  </script> {% endcomment %}
   
 {% endblock content%}
 
