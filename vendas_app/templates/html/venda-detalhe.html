@@ -1,11 +1,35 @@
 {% extends 'base.html' %}
 
-{% block title%}venda {% endblock title%}
+{% block title%} venda {% endblock title%}
+
+{% block core %}
+<a class="collapse-item" href="{% url 'historico-vendas' %}">
+  <i class="fas fa-fw fa-chevron-left"></i>
+</a>
+Venda detalhe
+{% endblock%}
 
 {% block content%}
 
-    
-    {{produtos}}<br>
-    {{venda.data_compra}}
+    <div class="col">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Produtos</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{produtos}}</td>
+                    <td>{{venda.valor_da_compra}}</td>
+                    <td>
+                        <a href="#"class="btn btn-info btn-sm">info</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     
 {% endblock content%}
