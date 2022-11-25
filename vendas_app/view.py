@@ -6,8 +6,10 @@ from .models import Carrinho
 
 from .serializers import CarrinhoSerializer
 
+from rest_framework.permissions import IsAuthenticated
 
 class CarrinhoController(APIView):
+    permission_classes = (IsAuthenticated)
 
     def get(self, request):
         produtos = Carrinho.objects.all()

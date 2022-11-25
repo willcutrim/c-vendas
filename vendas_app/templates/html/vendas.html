@@ -47,7 +47,11 @@ Histórico de vendas
                   <td>{{venda.quantidade}}</td>
                   <td>{{venda.data_compra}}</td>
                   <td>
-                    <a href="{% url 'venda-detalhe' venda.pk%}"class="btn btn-info btn-sm">info</a>
+                    <a href="{% url 'venda-detalhe' venda.pk %}"class="btn btn-info btn-sm">info</a>
+                    <form action="{% url 'deletar-venda' venda.pk %}" method="post" class="d-inline">{% csrf_token %}
+                      <input type="submit" class="btn btn-danger btn-sm" value="Deletar">
+                    </form>
+                    
                   </td>
               </tr>
             {% endfor %}
