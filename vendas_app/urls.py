@@ -7,6 +7,9 @@ from vendas_app.views.historico_de_vendas import historico_de_vendas
 from vendas_app.views.vendas_detalhes import vendas_detalhes
 from vendas_app.views.caixa_vendas import caixa_vendas
 from vendas_app.views.home import home
+from vendas_app.views.deletar_venda import deletar_venda
+from vendas_app.views.login import login
+from vendas_app.views.registrar import registrar
 
 from .viewset import CarrinhoViewSet
 
@@ -22,4 +25,11 @@ urlpatterns = [
     path('caixa-vendas', caixa_vendas, name='caixa-vendas'),
 
     path('vender/', CarrinhoViewSet.as_view),
+
+
+    path('deletar-venda/<int:pk>', deletar_venda, name='deletar-venda'),
+
+    path('login', login, name='login'),
+    path('registrar', registrar, name='registrar'),
+
 ]
